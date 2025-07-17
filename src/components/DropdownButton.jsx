@@ -1,99 +1,55 @@
-import React, { useState, useRef, useEffect } from "react";
+"use client";
 
-const DropdownButton = ({
-  label,
-  options,
-  onSelect,
-  selectedValue,
-  className = "",
-  buttonClassName = "",
-  menuClassName = "",
-}) => {
+// components/DropdownButton.jsx
+import { useState } from "react";
+
+export default function DropdownButton({ label, options, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const handleSelect = (option) => {
-    onSelect(option);
-    setIsOpen(false);
-  };
 
   return (
-    <div
-      className={`relative inline-block text-left ${className}`}
-      ref={dropdownRef}
-    >
+    <div className="relative">
       <button
-        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`
-          inline-flex justify-between w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-          ${buttonClassName}
-        `}
-        aria-expanded={isOpen}
-        aria-haspopup="true"
+        className="flex items-center justify-between px-4 py-2 bg-white border-2 border-gray-200 rounded-lg hover:border-techy transition-colors duration-200 min-w-[200px]"
       >
-        {selectedValue
-          ? options.find((opt) => opt.value === selectedValue)?.label || label
-          : label}
+        <span className="text-gray-700 font-medium">{label}</span>
         <svg
-          className={`-mr-1 ml-2 h-5 w-5 transition-transform duration-200 ${
+          className={`w-5 h-5 text-gray-400 transform transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
           <path
-            fillRule="evenodd"
-            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-            clipRule="evenodd"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
           />
         </svg>
       </button>
 
       {isOpen && (
-        <div
-          className={`
-          origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10
-          ${menuClassName}
-        `}
-        >
-          <div className="py-1">
-            {options.map((option) => (
-              <button
-                key={option.value}
-                onClick={() => handleSelect(option)}
-                className={`
-                  block w-full text-left px-4 py-2 text-sm transition-colors duration-150
-                  ${
-                    selectedValue === option.value
-                      ? "bg-indigo-100 text-indigo-900"
-                      : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  }
-                `}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
+        <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-full">
+          {options.map((option, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                onSelect(option);
+                setIsOpen(false);
+              }}
+              className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
+                option === label
+                  ? "bg-techy bg-opacity-10 text-techy font-medium"
+                  : ""
+              }`}
+            >
+              {option}
+            </button>
+          ))}
         </div>
       )}
     </div>
   );
-};
-
-export default DropdownButton;
+}

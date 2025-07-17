@@ -1,80 +1,53 @@
-import React, { useState } from "react";
-import ProductCard from "./ProductCard";
+"use client";
 
-const Gallery = ({ products, categories }) => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [sortBy, setSortBy] = useState("name");
+// components/Gallery.jsx
+import { useState } from "react";
 
-  const filteredProducts = products.filter(
-    (product) =>
-      selectedCategory === "all" || product.category === selectedCategory
-  );
-
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    switch (sortBy) {
-      case "price-low":
-        return a.price - b.price;
-      case "price-high":
-        return b.price - a.price;
-      case "rating":
-        return b.rating - a.rating;
-      case "name":
-      default:
-        return a.name.localeCompare(b.name);
-    }
-  });
+export default function Gallery({ images }) {
+  const [index, setIndex] = useState(0);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">
-          Our Products
-        </h2>
+    <div className="relative">
+      <div className="aspect-video bg-gray-100 rounded-xl overflow-hidden">
+        <img
+          src={images[index]}
+          alt={`Product image ${index + 1}`}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          {/* Category Filter */}
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="all">All Categories</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </option>
-            ))}
-          </select>
-
-          {/* Sort Filter */}
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="name">Sort by Name</option>
-            <option value="price-low">Price: Low to High</option>
-            <option value="price-high">Price: High to Low</option>
-            <option value="rating">Highest Rated</option>
-          </select>
+      {images.length > 1 && (
+        <div className="flex justify-center mt-4 space-x-2">
+          {images.map((img, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                i === index
+                  ? "bg-techy scale-125"
+                  : "bg-gray-300 hover:bg-gray-400"
+              }`}
+            />
+          ))}
         </div>
-      </div>
+      )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {sortedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-
-      {sortedProducts.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">
-            No products found in this category.
-          </p>
+      {images.length > 1 && (
+        <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4 transform -translate-y-1/2">
+          <button
+            onClick={() => setIndex(index > 0 ? index - 1 : images.length - 1)}
+            className="w-8 h-8 bg-black bg-opacity-50 text-white rounded-full flex items-center justify-center hover:bg-opacity-75 transition-all duration-300"
+          >
+            ‹
+          </button>
+          <button
+            onClick={() => setIndex(index < images.length - 1 ? index + 1 : 0)}
+            className="w-8 h-8 bg-black bg-opacity-50 text-white rounded-full flex items-center justify-center hover:bg-opacity-75 transition-all duration-300"
+          >
+            ›
+          </button>
         </div>
       )}
     </div>
   );
-};
-
-export default Gallery;
+}

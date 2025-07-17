@@ -1,179 +1,280 @@
-import Header from "@/components/Header";
-import Gallery from "@/components/Gallery";
+"use client";
 
-// Sample product data - replace with your actual data
-const sampleProducts = [
+import { useState } from "react";
+import Header from "@/components/Header";
+import ProductCard from "@/components/ProductCard";
+import DropdownButton from "@/components/DropdownButton";
+
+const products = [
   {
-    id: 1,
-    name: "Wireless Bluetooth Headphones",
-    price: 79.99,
-    originalPrice: 99.99,
-    image: "/products/headphones-sample.jpg", // Replace with actual image
-    rating: 4,
-    reviews: 128,
-    discount: 20,
-    category: "electronics",
+    name: "Differential & Integral Calculus",
     description:
-      "High-quality wireless headphones with noise cancellation and 30-hour battery life.",
-    affiliateLink: "https://example.com/affiliate-link-1",
+      "By Feliciano and Uy - Comprehensive calculus textbook for engineering students!",
+    images: [
+      "/products/IMG_1992.JPG",
+      "/products/IMG_1993.JPG",
+      "/products/IMG_1994.JPG",
+    ],
+    link: "https://s.shopee.ph/7fOsw1Zgo7",
+    category: "Computer Engineering",
   },
   {
-    id: 2,
-    name: "Smart Fitness Watch",
-    price: 199.99,
-    originalPrice: 249.99,
-    image: "/products/smartwatch-sample.jpg", // Replace with actual image
-    rating: 5,
-    reviews: 89,
-    discount: 20,
-    category: "electronics",
+    name: "CALCULUS With Analytic Geometry By:Thurman S.Peterson",
     description:
-      "Track your fitness goals with GPS, heart rate monitoring, and sleep tracking.",
-    affiliateLink: "https://example.com/affiliate-link-2",
+      "By peterson - Comprehensive calculus textbook for engineering students!",
+    images: ["/products/IMG_1995.JPG"],
+    link: "https://s.shopee.ph/7Km2Z48cU7",
+    category: "Computer Engineering",
+  },
+
+  {
+    name: "Engineering Economy Third Edition",
+    description:
+      "Essential textbook for engineering students - comprehensive and well-structured!",
+    images: ["/products/IMG_1939.JPG", "/products/IMG_1940.JPG"],
+    link: "https://s.shopee.ph/6Aa4vhXXf8",
+    category: "Computer Engineering",
   },
   {
-    id: 3,
-    name: "Premium Coffee Maker",
-    price: 129.99,
-    originalPrice: null,
-    image: "/products/coffee-maker-sample.jpg", // Replace with actual image
-    rating: 4,
-    reviews: 67,
-    discount: null,
-    category: "home",
+    name: "Elementary Differential Equation Seventh Edition",
     description:
-      "Brew perfect coffee every morning with programmable settings and thermal carafe.",
-    affiliateLink: "https://example.com/affiliate-link-3",
+      "by Rainville - Classic mathematics textbook for differential equations!",
+    images: ["/products/IMG_1937.JPG", "/products/IMG_1938.JPG"],
+    link: "https://s.shopee.ph/2g0ClQ7QGq",
+    category: "Computer Engineering",
   },
   {
-    id: 4,
-    name: "Comfortable Running Shoes",
-    price: 89.99,
-    originalPrice: 119.99,
-    image: "/products/running-shoes-sample.jpg", // Replace with actual image
-    rating: 4,
-    reviews: 156,
-    discount: 25,
-    category: "clothing",
+    name: "Plastic Storage Box Transparent Enclosure",
     description:
-      "Lightweight and breathable running shoes with excellent cushioning and support.",
-    affiliateLink: "https://example.com/affiliate-link-4",
+      "Clear Organizer Box / Casing - Perfect for electronics and small parts organization!",
+    images: [
+      "/products/IMG_1941.JPG",
+      "/products/IMG_1942.JPG",
+      "/products/IMG_1943.JPG",
+      "/products/IMG_1944.JPG",
+      "/products/IMG_1945.JPG",
+      "/products/IMG_1946.JPG",
+    ],
+    link: "https://s.shopee.ph/7ASc7orBW8",
+    category: "Computer Engineering",
+  },
+
+  {
+    name: "Aid Hand Clip LED Magnifying Stand",
+    description:
+      "Soldering Iron Stand Lens Magnifier for Jewelry - Essential for precision work! Thi sis very helpful especially i have no steady hands and no one can assist me with soldering.",
+    images: [
+      "/products/IMG_1960.JPG",
+      "/products/IMG_1961.JPG",
+      "/products/IMG_1962.JPG",
+      "/products/IMG_1963.JPG",
+    ],
+    link: "https://s.shopee.ph/5fdoLU00Jd",
+    category: "Computer Engineering",
+  },
+  {
+    name: "15in1 Original AD 220V 60W Soldering Iron",
+    description:
+      "Temperature adjustable set - Complete soldering solution for electronics work!",
+    images: [
+      "/products/IMG_1968.JPG",
+      "/products/IMG_1969.JPG",
+      "/products/IMG_1970.JPG",
+      "/products/IMG_1971.JPG",
+      "/products/IMG_1972.JPG",
+      "/products/IMG_1973.JPG",
+      "/products/IMG_1974.JPG",
+      "/products/IMG_1975.JPG",
+    ],
+    link: "https://s.shopee.ph/4L8QwljNOE",
+    category: "Computer Engineering",
+  },
+  {
+    name: "Mini Electric Drill Set 12V DC",
+    description:
+      "Mini Electric Grinder Power Tool for Milling Cutting Polishing - Versatile tool!",
+    images: [
+      "/products/IMG_1976.JPG",
+      "/products/IMG_1977.JPG",
+      "/products/IMG_1978.JPG",
+    ],
+    link: "https://s.shopee.ph/LcIBWeS77",
+    category: "Computer Engineering",
+  },
+  {
+    name: "LCD Digital Multimeter XL830L",
+    description:
+      "Voltmeter Ammeter Ohmmeter HOLDPEAK Manual Multi Tester - Essential for electronics!",
+    images: [
+      "/products/IMG_1997.JPG",
+      "/products/IMG_1998.JPG",
+      "/products/IMG_1999.JPG",
+    ],
+    link: "https://s.shopee.ph/3LFtne7S4t",
+    category: "Computer Engineering",
+  },
+  {
+    name: "SN74LS08N 74LS Series IC",
+    description:
+      "10/5Pcs 74LS08 7408 DIP14 IC NEW - Perfect for digital electronics projects!",
+    images: ["/products/IMG_2001.JPG"],
+    link: "https://s.shopee.ph/LcIBf9wBJ",
+    category: "Computer Engineering",
+  },
+
+  {
+    name: "Circuitrocks Breadboard 400/830 Points",
+    description:
+      "Solderless PCB Test Board Mb-102 Syb-120 Syb-46 Arduino - Essential for prototyping!",
+    images: ["/products/IMG_1980.JPG"],
+    link: "https://s.shopee.ph/8AL9WAmqQG",
+    category: "Computer Engineering",
+  },
+  {
+    name: "Circuitrocks Solder Wire 30g",
+    description:
+      "Welding High Purity Low Fusion Spot 0.8mm Rosin Soldering Wire - Quality soldering!",
+    images: ["/products/IMG_1981.JPG"],
+    link: "https://s.shopee.ph/1g7fmHjAA4",
+    category: "Computer Engineering",
+  },
+  {
+    name: "Circuitrocks Soldering Flux 150g",
+    description:
+      "Rosin Paste Solder Welding Grease For Mobile Phone PC Card BGA - Professional grade flux!",
+    images: ["/products/IMG_1996.JPG"],
+    link: "https://s.shopee.ph/50O7kRIXE6",
+    category: "Computer Engineering",
+  },
+  {
+    name: "Raspberry Pi 5 Board BCM2712",
+    description:
+      "Arm Cortex-A76 MicroSD, Wifi, HDMI, Power Button - Latest Pi with amazing performance!",
+    images: [
+      "/products/IMG_1982.JPG",
+      "/products/IMG_1983.JPG",
+      "/products/IMG_1984.JPG",
+    ],
+    link: "https://s.shopee.ph/3LFtlSe2wK",
+    category: "Computer Engineering",
+  },
+  {
+    name: "52Pi Raspberry Pi 5 Power Supply",
+    description:
+      "5V 5A USB Type-c Power Supply AC/DC Power Adapter - Official power adapter for Pi 5!",
+    images: ["/products/IMG_1985.JPG"],
+    link: "https://s.shopee.ph/4L8QxOGYp7",
+    category: "Computer Engineering",
+  },
+  {
+    name: "Zeus K Series Gaming Keyboard",
+    description:
+      "Wired Creamy Keyboard With Rainbow RGB Backlit Media Knob 98 Keys - Perfect for gaming and productivity!",
+    images: ["/products/IMG_1990.JPG", "/products/IMG_1991.JPG"],
+    link: "https://s.shopee.ph/801jKIGVNO",
+    category: "Setup & Accessories",
+  },
+  {
+    name: "Nvision 22 24 27 Inch IPS Monitor",
+    description:
+      "100Hz Frameless Flat FHD Gaming Monitor Computer PC Monitor - Crystal clear display for work and gaming!",
+    images: [
+      "/products/IMG_1986.JPG",
+      "/products/IMG_1987.JPG",
+      "/products/IMG_1988.JPG",
+      "/products/IMG_1989.JPG",
+    ],
+    link: "https://s.shopee.ph/gF8aibZ7j",
+    category: "Setup & Accessories",
+  },
+  {
+    name: "Ergonomic Office Chair Gaming Chair",
+    description:
+      "Computer Chair Mesh Chair Home Office Study Chair High Back ch001 - Comfortable for long sessions!",
+    images: [
+      "/products/IMG_1953.JPG",
+      "/products/IMG_1948.JPG",
+      "/products/IMG_1949.JPG",
+      "/products/IMG_1950.JPG",
+      "/products/IMG_1951.JPG",
+      "/products/IMG_1952.JPG",
+      "/products/IMG_1947.JPG",
+    ],
+    link: "https://s.shopee.ph/5pxEXZDY8K",
+    category: "Setup & Accessories",
+  },
+  {
+    name: "Wireless Bluetooth Mouse 2.4GHz",
+    description:
+      "Optical Rechargeable Ultra Thin Silent Mice for PC Laptop Tablet - Great for productivity!",
+    images: ["/products/IMG_1959.JPG"],
+    link: "https://s.shopee.ph/1VoFNkkted",
+    category: "Setup & Accessories",
+  },
+  {
+    name: "Study Table Computer Desk",
+    description:
+      "Office Table with Bookshelf 80/100/120 CM - Great workspace solution!",
+    images: ["/products/IMG_1979.JPG"],
+    link: "https://s.shopee.ph/2qJdAJGo6f",
+    category: "Setup & Accessories",
   },
 ];
 
-const categories = ["electronics", "home", "clothing"];
+const categories = [
+  "All",
+  "Computer Engineering",
+  "Setup & Accessories",
+  "Fashion",
+  "Home & Living",
+  "Sports & Outdoors",
+];
 
 export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const filteredProducts =
+    selectedCategory === "All"
+      ? products
+      : products.filter((product) => product.category === selectedCategory);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-gray-50 min-h-screen">
       <Header />
 
-      <main>
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            <div className="text-center">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                Discover Amazing Products
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 text-blue-100">
-                Find the best deals on top-rated products, carefully curated for
-                you
-              </p>
-              <button className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-full text-lg hover:bg-gray-100 transition-colors duration-200">
-                Shop Now
-              </button>
-            </div>
+      {/* Category Filter */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-4xl mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-gray-800">
+              Shop by Category
+            </h2>
+            <DropdownButton
+              label={selectedCategory}
+              options={categories}
+              onSelect={setSelectedCategory}
+            />
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* Products Gallery */}
-        <Gallery products={sampleProducts} categories={categories} />
+      {/* Products Grid */}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-2 gap-3 md:gap-6">
+          {filteredProducts.map((prod, idx) => (
+            <ProductCard key={idx} {...prod} />
+          ))}
+        </div>
 
-        {/* Footer */}
-        <footer className="bg-gray-800 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div>
-                <h3 className="text-lg font-semibold mb-4">
-                  My Affiliate Shop
-                </h3>
-                <p className="text-gray-400">
-                  Your trusted source for quality products and amazing deals.
-                </p>
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-                <ul className="space-y-2 text-gray-400">
-                  <li>
-                    <a href="#" className="hover:text-white">
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white">
-                      Products
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white">
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white">
-                      Contact
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold mb-4">Categories</h4>
-                <ul className="space-y-2 text-gray-400">
-                  <li>
-                    <a href="#" className="hover:text-white">
-                      Electronics
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white">
-                      Home & Garden
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white">
-                      Clothing
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white">
-                      Sports
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold mb-4">Connect</h4>
-                <div className="flex space-x-4">
-                  <a href="#" className="text-gray-400 hover:text-white">
-                    <span className="sr-only">Facebook</span>
-                    <svg
-                      className="h-6 w-6"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
-              <p>&copy; 2025 My Affiliate Shop. All rights reserved.</p>
-            </div>
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">
+              No products found in this category yet.
+            </p>
+            <p className="text-gray-400 mt-2">More items coming soon! 🚀</p>
           </div>
-        </footer>
-      </main>
+        )}
+      </div>
     </div>
   );
 }

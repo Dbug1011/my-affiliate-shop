@@ -6,7 +6,16 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        techy: "#00FF90", // green neon
+        background: "#0B0B0B", // deep tech black
+        pinky: "#FF44CC", // cute pink accent
+      },
+      fontFamily: {
+        pixel: ['"Press Start 2P"', "cursive"],
+      },
+    },
   },
   plugins: [],
 };

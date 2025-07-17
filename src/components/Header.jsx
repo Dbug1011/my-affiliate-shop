@@ -1,62 +1,27 @@
-import React from "react";
+// components/Header.jsx
+import SocialIcons from "./SocialIcons";
 
-const Header = () => {
+export default function Header() {
   return (
-    <header className="bg-white shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-6">
-          <div className="flex items-center">
-            <h1 className="text-3xl font-bold text-gray-900">
-              My Affiliate Shop
-            </h1>
+    <div className="bg-white shadow-sm border-b">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="text-center">
+          <div className="flex justify-center mb-4">
+            <img
+              src="/logo.png"
+              alt="Logo"
+              className="w-24 h-24 rounded-full border-4 border-techy shadow-lg"
+            />
           </div>
-          <nav className="hidden md:flex space-x-10">
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Products
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              About
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Contact
-            </a>
-          </nav>
-          <div className="md:hidden">
-            <button className="text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900">
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
-          </div>
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">KiSelects</h1>
+          <p className="text-gray-600 text-lg mb-4">
+            Hi there! I'm kiki, a computer engineering student and these are my
+            trusted shops & products since Year 1, please support me by buying
+            through my links!
+          </p>
+          <SocialIcons />
         </div>
       </div>
-    </header>
+    </div>
   );
-};
-
-export default Header;
+}
