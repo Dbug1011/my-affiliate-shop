@@ -1,55 +1,44 @@
-"use client";
+"use client"
 
-// components/DropdownButton.jsx
-import { useState } from "react";
+import { useState } from "react"
 
 export default function DropdownButton({ label, options, onSelect }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between px-4 py-2 bg-white border-2 border-gray-200 rounded-lg hover:border-techy transition-colors duration-200 min-w-[200px]"
+        className="flex items-center justify-between px-4 py-3 bg-black border-3 border-techy text-techy hover:bg-techy hover:text-black transition-all duration-200 min-w-[200px] font-pixel text-xs"
       >
-        <span className="text-gray-700 font-medium">{label}</span>
-        <svg
-          className={`w-5 h-5 text-gray-400 transform transition-transform duration-200 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
+        <span className="uppercase">{label}</span>
+        <div className="ml-2">
+          <div
+            className={`w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-techy transform transition-transform duration-200 ${
+              isOpen ? "rotate-180" : ""
+            }`}
           />
-        </svg>
+        </div>
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-full">
+        <div className="absolute top-full left-0 mt-1 bg-black border-3 border-techy z-10 min-w-full">
           {options.map((option, index) => (
             <button
               key={index}
               onClick={() => {
-                onSelect(option);
-                setIsOpen(false);
+                onSelect(option)
+                setIsOpen(false)
               }}
-              className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
-                option === label
-                  ? "bg-techy bg-opacity-10 text-techy font-medium"
-                  : ""
+              className={`block w-full text-left px-4 py-3 text-techy hover:bg-techy hover:text-black transition-all duration-200 border-b border-techy last:border-b-0 font-pixel text-xs ${
+                option === label ? "bg-techy bg-opacity-20 text-techy" : ""
               }`}
             >
-              {option}
+              {option.toUpperCase()}
             </button>
           ))}
         </div>
       )}
     </div>
-  );
+  )
 }
