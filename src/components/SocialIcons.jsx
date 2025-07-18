@@ -39,11 +39,6 @@ const SocialIcons = () => {
           color: "hover:text-blue-500",
         },
         {
-          icon: SiGithub,
-          href: "https://github.com/Dbug1011",
-          color: "hover:text-techy",
-        },
-        {
           icon: SiDiscord,
           href: "https://discordapp.com/users/dbug1011",
           color: "hover:text-indigo-400",
