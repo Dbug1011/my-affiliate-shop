@@ -16,7 +16,7 @@ const products = [
     ],
     link: "https://s.shopee.ph/7fOsw1Zgo7",
     category: "Computer Engineering",
-    isClickable: true, // Special indicator for this card
+    isClickable: true, 
   },
   {
     name: "CALCULUS With Analytic Geometry By:Thurman S.Peterson",
@@ -242,7 +242,6 @@ export default function Home() {
     <div className="bg-black min-h-screen pixel-bg">
       <Header />
 
-      {/* Category Filter */}
       <div className="bg-black border-b-4 border-techy">
         <div className="max-w-4xl mx-auto px-2 md:px-4 py-4 md:py-6">
           <div className="flex items-center justify-between flex-wrap gap-2 md:gap-4">
@@ -250,6 +249,7 @@ export default function Home() {
               SHOP BY CATEGORY
             </h2>
             <DropdownButton
+              className="z-50"
               label={selectedCategory}
               options={categories}
               onSelect={setSelectedCategory}
@@ -258,7 +258,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Products Grid */}
       <div className="max-w-4xl mx-auto px-2 md:px-4 py-8">
         <div className="grid grid-cols-2 gap-2 md:gap-4">
           {filteredProducts.map((prod, idx) => (
@@ -291,7 +290,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* Footer */}
       <footer className="bg-black border-t-4 border-techy py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="flex justify-center items-center gap-4 mb-4">

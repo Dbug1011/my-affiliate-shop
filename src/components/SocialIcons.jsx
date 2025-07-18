@@ -56,7 +56,6 @@ const SocialIcons = () => {
                 className={`transition-all duration-200 ${color} group-hover:text-black`}
               />
             </div>
-            {/* Cute pixel decoration */}
             <div className="absolute -top-1 -right-1 w-1 md:w-2 h-1 md:h-2 bg-pinky opacity-0 group-hover:opacity-100 transition-opacity"></div>
           </div>
         </Link>

@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 
 export default function DropdownButton({ label, options, onSelect }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="relative">
@@ -22,13 +22,13 @@ export default function DropdownButton({ label, options, onSelect }) {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 bg-black border-3 border-techy z-10 min-w-full">
+        <div className="absolute top-full left-0 mt-1 bg-black border-3 border-techy z-50 min-w-full">
           {options.map((option, index) => (
             <button
               key={index}
               onClick={() => {
-                onSelect(option)
-                setIsOpen(false)
+                onSelect(option);
+                setIsOpen(false);
               }}
               className={`block w-full text-left px-4 py-3 text-techy hover:bg-techy hover:text-black transition-all duration-200 border-b border-techy last:border-b-0 font-pixel text-xs ${
                 option === label ? "bg-techy bg-opacity-20 text-techy" : ""
@@ -40,5 +40,5 @@ export default function DropdownButton({ label, options, onSelect }) {
         </div>
       )}
     </div>
-  )
+  );
 }

@@ -3,7 +3,6 @@ import SocialIcons from "./SocialIcons";
 export default function Header() {
   return (
     <div className="bg-black border-b-4 border-techy pixel-bg relative overflow-hidden">
-      {/* Floating pixels */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(12)].map((_, i) => (
           <div
@@ -20,10 +19,8 @@ export default function Header() {
 
       <div className="max-w-4xl mx-auto px-2 md:px-4 py-4 md:py-8 relative z-10">
         <div className="text-center">
-          {/* Pixelated logo container */}
           <div className="flex justify-center mb-3 md:mb-6">
             <div className="relative">
-              {/* Animated rainbow border */}
               <div className="w-16 md:w-24 h-16 md:h-24 bg-gradient-to-r from-pinky via-techy to-yellow-400 p-1 rounded-full">
                 <div className="w-full h-full bg-black rounded-full flex items-center justify-center">
                   <img
@@ -33,11 +30,9 @@ export default function Header() {
                   />
                 </div>
               </div>
-              {/* Cute pixel decorations */}
               <div className="absolute -top-1 md:-top-2 -right-1 md:-right-2 w-2 md:w-4 h-2 md:h-4 bg-pinky"></div>
               <div className="absolute -bottom-1 md:-bottom-2 -left-1 md:-left-2 w-2 md:w-4 h-2 md:h-4 bg-yellow-400"></div>
 
-              {/* Big Kiki companion on the left */}
               <div className="absolute -left-14 md:-left-22 top-1/2 transform -translate-y-1/2 animate-bounce">
                 <img
                   src="/kiki_pixel.png"
@@ -48,7 +43,6 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Pixelated title */}
           <div className="mb-3 md:mb-6 relative">
             <h1 className="text-2xl md:text-4xl font-bold text-techy mb-1 md:mb-2 tracking-wider font-pixel">
               KISELECTS
@@ -64,7 +58,6 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Pixelated description box */}
           <div className="bg-black border-2 md:border-3 border-techy p-3 md:p-6 mb-3 md:mb-6 relative">
             <div className="absolute top-1 md:top-2 left-1 md:left-2 w-2 md:w-3 h-2 md:h-3 bg-techy"></div>
             <div className="absolute top-1 md:top-2 right-1 md:right-2 w-2 md:w-3 h-2 md:h-3 bg-techy"></div>

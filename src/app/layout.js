@@ -11,7 +11,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 })
 
-// Add Press Start 2P font
 const pressStart2P = {
   variable: "--font-press-start",
   style: {

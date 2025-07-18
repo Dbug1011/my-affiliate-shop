@@ -140,10 +140,9 @@ export default function ProductCard({
         onClick={() => setActive(product)}
         className="bg-black border-3 border-techy overflow-hidden m-1 md:m-2 transition-all duration-300 hover:border-pinky cursor-pointer hover:pixel-glow relative group"
       >
-        {/* Cute Click Indicator - Only show for clickable cards */}
         {isClickable && (
-          <div className="absolute top-2 left-2 z-10 bg-pinky text-black text-xs px-2 py-1 border border-techy font-bold animate-bounce font-pixel">
-            CLICK!
+          <div className="absolute top-2 left-2 z-[5] bg-pinky text-black text-xs px-2 py-1 border border-techy font-bold animate-bounce font-pixel">
+             CLICK!
           </div>
         )}
 
